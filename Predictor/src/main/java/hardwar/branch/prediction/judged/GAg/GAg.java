@@ -42,8 +42,8 @@ public class GAg implements BranchPredictor {
         Bit[] ad = BHR.read();
         SC.load(PHT.get(ad) != null ? PHT.get(ad) : getDefaultBlock());
         if (SC.read()[0] == Bit.ONE)
-            return BranchResult.NOT_TAKEN;
-        return BranchResult.TAKEN;
+            return BranchResult.TAKEN;
+        return BranchResult.NOT_TAKEN;
     }
 
     /**
