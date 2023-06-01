@@ -56,7 +56,8 @@ public class GAs implements BranchPredictor {
         // TODO: complete Task 1
         Bit[] ad = this.getCacheEntry(branchInstruction.getInstructionAddress());
         ad = CombinationalLogic.hash(ad, KSize, this.hashMode);
-        SC.load(PSPHT.get(ad) != null ? PSPHT.get(ad) : getDefaultBlock());
+        PSPHT.putIfAbsent(ad, getDefaultBlock());
+        SC.load(PSPHT.get(ad));
         if (SC.read()[0] == Bit.ONE)
             return BranchResult.TAKEN;
         return BranchResult.NOT_TAKEN;
