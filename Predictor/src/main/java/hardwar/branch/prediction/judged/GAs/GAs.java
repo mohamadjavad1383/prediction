@@ -55,7 +55,6 @@ public class GAs implements BranchPredictor {
     public BranchResult predict(BranchInstruction branchInstruction) {
         // TODO: complete Task 1
         Bit[] ad = this.getCacheEntry(branchInstruction.getInstructionAddress());
-        ad = CombinationalLogic.hash(ad, KSize, this.hashMode);
         PSPHT.putIfAbsent(ad, getDefaultBlock());
         SC.load(PSPHT.get(ad));
         if (SC.read()[0] == Bit.ONE)
@@ -75,7 +74,6 @@ public class GAs implements BranchPredictor {
         Bit[] bits = SC.read();
         bits = CombinationalLogic.count(bits, BranchResult.isTaken(actual), CountMode.SATURATING);
         Bit[] ad = this.getCacheEntry(branchInstruction.getInstructionAddress());
-        ad = CombinationalLogic.hash(ad, KSize, this.hashMode);
         PSPHT.put(ad, bits);
         BHR.insert(Bit.of(BranchResult.isTaken(actual)));
     }
